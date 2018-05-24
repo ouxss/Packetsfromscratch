@@ -21,6 +21,14 @@ import random
 from LIB import *
 import socket
 
+__name__ = 'TCP'
+__version__ = '0.1'
+__date__ = ' Mars 2018'
+__author__ = 'Oussama boudar'
+__email__ = 'oussama.boudar@yellowlightit.com'
+__site__ = 'www.yellowlightit.com'
+
+
 PackFormat= '!HHLLBBH'
 PackFormatPseudoheader="!4s4sBBH"
 

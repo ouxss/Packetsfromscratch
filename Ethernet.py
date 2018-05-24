@@ -19,6 +19,15 @@
 from struct import *
 from LIB import *
 
+__name__ = 'Ethernet'
+__version__ = '0.1'
+__date__ = ' Mars 2018'
+__author__ = 'Oussama boudar'
+__email__ = 'oussama.boudar@yellowlightit.com'
+__site__ = 'www.yellowlightit.com'
+
+
+
 ETHERNET_HEADER_LENGH = 14
 PackFormat = "!6s6sH"
 

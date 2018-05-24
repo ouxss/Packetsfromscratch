@@ -15,6 +15,18 @@ for more information about ARP see : https://en.wikipedia.org/wiki/Address_Resol
 
 from struct import *
 import socket
+
+
+__name__ = 'ARP'
+__version__ = '0.1'
+__date__ = ' Mars 2018'
+__author__ = 'Oussama boudar'
+__email__ = 'oussama.boudar@yellowlightit.com'
+__site__ = 'www.yellowlightit.com'
+
+
+
+
 PAckFormat = "!HHBBH6s4s6s4s"
 class ARP():
 	def __init__(self,SHA,SPA,THA,TPA):

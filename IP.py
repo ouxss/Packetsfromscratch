@@ -25,6 +25,15 @@ import random
 import LIB
 
 
+__name__ = 'IP'
+__version__ = '0.1'
+__date__ = ' Mars 2018'
+__author__ = 'Oussama boudar'
+__email__ = 'oussama.boudar@yellowlightit.com'
+__site__ = 'www.yellowlightit.com'
+
+
+
 PackFormat = "!BBHHHBB"
 IP_header_lenght = 20 #without using options
 class IP:
