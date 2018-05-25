@@ -15,7 +15,6 @@
 
 
 '''
-
 from struct import *
 from LIB import *
 
@@ -26,11 +25,8 @@ __author__ = 'Oussama boudar'
 __email__ = 'oussama.boudar@yellowlightit.com'
 __site__ = 'www.yellowlightit.com'
 
-
-
 ETHERNET_HEADER_LENGH = 14
 PackFormat = "!6s6sH"
-
 
 class Ethernet:
 	def __init__(self, mac_src,mac_dst,Ethernet_type , Ethernet_payload):
@@ -48,20 +44,13 @@ class Ethernet:
 	def Pack(self):
 	
 		Ethernet_header = pack(PackFormat,self.mac_dst,self.mac_src,self.Ethernet_type)
-
 		Ethernet_frame = Ethernet_header + self.Ethernet_payload 
-		
 		return Ethernet_frame
 
 	def UnPack(self,Ethernet_frame):
 
 		Ethernet_header = unpack(PackFormat,Ethernet_frame[0:ETHERNET_HEADER_LENGH])
-		self.mac_dst = Ethernet_header[0]
-		
+		self.mac_dst = Ethernet_header[0]		
 		self.mac_src = Ethernet_header[1]
 		self.Ethernet_type =  Ethernet_header[2]
 		self.Ethernet_payload = Ethernet_frame[ETHERNET_HEADER_LENGH:]
-
-		
-		
-	

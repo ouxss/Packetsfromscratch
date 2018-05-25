@@ -24,7 +24,6 @@ from struct import *
 import random
 import LIB
 
-
 __name__ = 'IP'
 __version__ = '0.1'
 __date__ = ' Mars 2018'
@@ -32,10 +31,9 @@ __author__ = 'Oussama boudar'
 __email__ = 'oussama.boudar@yellowlightit.com'
 __site__ = 'www.yellowlightit.com'
 
-
-
 PackFormat = "!BBHHHBB"
 IP_header_lenght = 20 #without using options
+
 class IP:
 	def __init__(self, ip_src, ip_dst, payload):
 		
@@ -60,14 +58,11 @@ class IP:
 		#Bit 0: reserved, must be zero
 		#Bit 1: (DF) 0 = May Fragment,  1 = Don't Fragment.
 		#Bit 2: (MF) 0 = Last Fragment, 1 = More Fragments.
-
 		self.reserved_flag = 0
 		self.DF_flag = 1
 		self.MF_flag = 0
-		
 		#This field indicates where in the datagram this fragment belongs. 
 		#The fragment offset is measured in units of 8 octets (64 bits).  The first fragment has offset zero.
-
 		self.fragment_offset = 0
 		#Time to Live indicates the maximum time the datagram is allowed to remain in the internet system.
 		self.ttl = 255
@@ -75,31 +70,29 @@ class IP:
 		self.protocol = socket.IPPROTO_TCP
 		#A checksum on the header only, The checksum field is the 16 bit one's complement of the one's complement sum of all 16 bit words in the header.  For purposes of computing the checksum, the value of the checksum field is zero.
 		self.header_checksum = 0
-	
 		#The options may appear or not in datagrams.	
 	
 	# this function performs conversions between Python values and C structs, its retuen a packed IP header.
 	def Create_ip_header(self):
+
 		#Convert an IPv4 address from dotted-quad string format to 32-bit packed binary format
 		ip_src =  socket.inet_aton(self.ip_src)
 		ip_dst = socket.inet_aton(self.ip_dst)
 		version_ihl = (self.version << 4) + self.ihl 
 		flags_fragment_offset = (self.reserved_flag << 15) + (self.DF_flag << 14) + (self.MF_flag << 13) + self.fragment_offset
-
-
 		return pack(PackFormat,version_ihl, self.type_of_service,self.total_length,self.identification,flags_fragment_offset,self.ttl,self.protocol)+pack("H",self.header_checksum)+pack("!4s4s",ip_src,ip_dst)
 
 	def Pack(self):
+
 		ip_header = self.Create_ip_header()
 		checksum = LIB.Compute_checksum(ip_header)
 		self.header_checksum = checksum
 		
 		ip_header = self.Create_ip_header()
 		return ip_header + self.payload
-	
-		
+			
 	def UnPack(self,ip_datagram):
-		
+	
 		ip_header = unpack(PackFormat+"H4s4s", ip_datagram[0:IP_header_lenght])
 		version_ihl = ip_header[0]
 		self.ihl = version_ihl & 0xF
@@ -117,20 +110,5 @@ class IP:
 		self.header_checksum = ip_header[7]
 		self.ip_src = socket.inet_ntoa(ip_header[8])
 		self.ip_dst = socket.inet_ntoa(ip_header[9])
-
 		data_len = self.total_length - self.ihl * 4
 		self.payload = ip_datagram[self.ihl * 4: self.ihl * 4 + data_len] 
-
-
-		
-		
-		
-		
-	
-
-		
-
-	
-		
-		
-

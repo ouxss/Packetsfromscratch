@@ -16,7 +16,6 @@ for more information about ARP see : https://en.wikipedia.org/wiki/Address_Resol
 from struct import *
 import socket
 
-
 __name__ = 'ARP'
 __version__ = '0.1'
 __date__ = ' Mars 2018'
@@ -24,10 +23,8 @@ __author__ = 'Oussama boudar'
 __email__ = 'oussama.boudar@yellowlightit.com'
 __site__ = 'www.yellowlightit.com'
 
-
-
-
 PAckFormat = "!HHBBH6s4s6s4s"
+
 class ARP():
 	def __init__(self,SHA,SPA,THA,TPA):
 		#This field specifies the network protocol type. Ethernet is 1.
@@ -54,6 +51,7 @@ class ARP():
 		self.TPA=TPA
 
 	def Pack(self):
+
 		return pack(PAckFormat,self.HT,self.PT,self.HS,self.PS,self.OP,self.SHA,socket.inet_aton(self.SPA),self.THA,socket.inet_aton(self.TPA))
 	
 	def UnPAck(self,packet):
@@ -67,12 +65,3 @@ class ARP():
 		self.SPA = socket.inet_ntoa(arp_header[6])
 		self.THA = arp_header[7]
 		self.TPA = socket.inet_ntoa(arp_header[8])
-		
-
-		
-		
-	
-		
-
-
-
