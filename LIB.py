@@ -16,13 +16,11 @@ seq_num = 0
 def sendarp(interface,arp):
         raw_socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
         raw_socket.bind((interface, socket.SOCK_RAW))
-
         while True:
-
                 raw_socket.send(arp)
 
 def Compute_checksum(header):
-	
+
 	if len(header) % 2 == 1:
 		header += pack('B',0)	
 	checksum = 0
@@ -166,10 +164,8 @@ def receive_tcp(interface,port_src,port_dst,**kwargs):
 	buffer_size = 65536
 	raw_socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
         raw_socket.bind((interface, socket.SOCK_RAW))
-
 	while True:
 		packet = raw_socket.recvfrom(buffer_size)[0]
-		
 		tcp = UnPack_tcp_packet(packet)
 		if tcp == None:
 			continue	
@@ -187,11 +183,7 @@ def receive_tcp(interface,port_src,port_dst,**kwargs):
                         	        continue
 
 				if "fin" in kwargs and kwargs["fin"]!=tcp.fin:
-        	                        continue
-				
-				
+        	                        continue				
 				return tcp
-		
-
 		except:
 			pass
